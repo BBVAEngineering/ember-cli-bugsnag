@@ -1,7 +1,12 @@
 import Ember from 'ember';
 import XHRError from './xhr-error';
+import { errorIs } from './bugsnag-skip';
 
-const { get, isNone } = Ember;
+const {
+  debug,
+  get,
+  isNone
+} = Ember;
 
 export function getContext(router) {
   const infos = router.currentState.routerJsState.handlerInfos;
@@ -57,4 +62,25 @@ export function getError(error) {
   }
 
   return new Error(error);
+}
+
+/**
+ * Skips the error if any condition is satisfied.
+ *
+ * @param  {Mixed} error Error caught
+ * @return {Boolean} True to skip the error; False to include it.
+ */
+export function skipError(error, skipErrorTypes = {}) {
+  let result = false;
+
+  Object.keys(skipErrorTypes).forEach((name) => {
+    if ((skipErrorTypes[name] === true) && (typeof errorIs[name] === 'function') && (errorIs[name](error))) {
+      debug(`The error is skipped by fulfilling the condition '${name}'`);
+      result = true;
+
+      return;
+    }
+  });
+
+  return result;
 }

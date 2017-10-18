@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import config from '../config/environment';
-import { getContext, generateError, getError } from 'ember-cli-bugsnag/utils/errors';
+import { getContext, generateError, getError, skipError } from 'ember-cli-bugsnag/utils/errors';
 import { getMetaData } from '../utils/bugsnag';
+import { errorIs } from '../utils/bugsnag-skip';
 import Bugsnag from 'bugsnag';
 
 export default {
@@ -20,23 +21,26 @@ export default {
     let router = owner.lookup('router:main');
 
     Ember.onerror = function(error) {
-      const plain = !(error instanceof Error);
+      const skip = skipError(error, config.bugsnag.skipErrorTypes);
+      const plain = errorIs.plain(error);
 
       if (plain) {
         error = getError(error);
       }
 
-      if (isBugsnagActive && !plain) {
-        const metaData = getMetaData(error, owner) || {};
+      if (skip !== true) {
+        if (isBugsnagActive) {
+            const metaData = getMetaData(error, owner) || {};
 
-        // Group all plain errors by message.
-        if (plain) {
-          metaData.groupingHash = error ? error.message : 'No message found on error object';
+            // Group all plain errors by message.
+            if (plain) {
+              metaData.groupingHash = error ? error.message : 'No message found on error object';
+            }
+            Bugsnag.context = getContext(router);
+            Bugsnag.notifyException(error, null, metaData);
         }
-        Bugsnag.context = getContext(router);
-        Bugsnag.notifyException(error, null, metaData);
+        console.error(error.message, error.stack);
       }
-      console.error(error.message, error.stack);
     };
 
     Ember.Logger.error = function(message, cause, stack) {
