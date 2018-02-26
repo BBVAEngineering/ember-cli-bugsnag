@@ -1,6 +1,9 @@
 # Ember-cli-bugsnag
 
-[![Build Status](https://travis-ci.org/twokul/ember-cli-bugsnag.svg)](https://travis-ci.org/twokul/ember-cli-bugsnag)
+[![Build Status](https://travis-ci.org/BBVAEngineering/ember-cli-bugsnag.svg?branch=master)](https://travis-ci.org/BBVAEngineering/ember-cli-bugsnag)
+[![GitHub version](https://badge.fury.io/gh/BBVAEngineering%2Fember-cli-bugsnag.svg)](https://badge.fury.io/gh/BBVAEngineering%2Fember-cli-bugsnag)
+[![npm version](https://badge.fury.io/js/ember-cli-bugsnag.svg)](https://badge.fury.io/js/ember-cli-bugsnag)
+[![Dependency Status](https://david-dm.org/BBVAEngineering/ember-cli-bugsnag.svg)](https://david-dm.org/BBVAEngineering/ember-cli-bugsnag)
 
 ## Installation
 
@@ -85,3 +88,21 @@ return {
 ```
 
 See [the Bugsnag docs](https://bugsnag.com/docs/notifiers/js#metadata) for more information.
+
+## Contribute
+
+We're thankful to the community for contributing any improvements.
+
+Do not forget to follow our [eslint](https://github.com/BBVAEngineering/javascript/tree/master/eslint-config-bbva) rules and make test for the new functionalities/fixes.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/BBVAEngineering/ember-cli-bugsnag/tags).
+
+## Authors
+
+See the list of [contributors](https://github.com/BBVAEngineering/ember-cli-bugsnag/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
