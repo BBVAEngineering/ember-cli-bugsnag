@@ -42,7 +42,7 @@ export default {
 	},
 
 	_onError(error) {
-		if (!error || typeof error !== 'object' || !error.name || !error.message) {
+		if (!error || typeof error !== 'object' || error.name || error.message) {
 			return;
 		}
 
