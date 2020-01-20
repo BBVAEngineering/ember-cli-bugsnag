@@ -42,7 +42,7 @@ export default {
 	},
 
 	_onError(error) {
-		if (error instanceof Error) {
+		if (!(error instanceof Error)) {
 			return;
 		}
 
