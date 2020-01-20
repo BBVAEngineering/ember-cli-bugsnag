@@ -105,7 +105,7 @@ module('Acceptance | bugsnag', (hooks) => {
 		assert.ok(this.bugsnag.notify.notCalled);
 	});
 
-	test('it notifies strings as errors', async function(assert) {
+	test('it does not notifies strings as errors', async function(assert) {
 		await visit('/foo');
 
 		try {
