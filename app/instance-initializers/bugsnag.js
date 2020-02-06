@@ -1,4 +1,4 @@
-import { setProperties, get } from '@ember/object';
+import { setProperties, get, getWithDefault } from '@ember/object';
 import Ember from 'ember';
 import * as appMethods from '../utils/bugsnag';
 
@@ -9,6 +9,13 @@ class UnknownError extends Error {
 	}
 }
 
+export function getFilter(instance) {
+	const config = instance.resolveRegistration('config:environment');
+
+	return {
+		errorFilter: getWithDefault(config, 'ember-cli-bugsnag.errorFilter',[]),
+	};
+}
 function getContext(router) {
 	return `${router.currentRouteName} (${router.currentURL})`;
 }
@@ -16,6 +23,7 @@ function getContext(router) {
 export function initialize(instance) {
 	const owner = instance.lookup ? instance : instance.container;
 	const client = owner.lookup('bugsnag:main');
+	const { errorFilter } = getFilter(instance);
 
 	if (client && client.config.notifyReleaseStages.includes(client.config.releaseStage)) {
 		const routerService = owner.lookup('service:router');
@@ -30,7 +38,8 @@ export function initialize(instance) {
 		setProperties(this, {
 			owner,
 			router,
-			client
+			client,
+			errorFilter
 		});
 
 		Ember.onerror = this._onError.bind(this);
@@ -49,11 +58,11 @@ export default {
 	},
 
 	_onError(error) {
-		if (!error) {
+		if (!error || this.errorFilter.includes(error.name)) {
 			return;
 		}
 
-		if (!error || typeof error !== 'object' || !error.name || !error.message) {
+		if (typeof error !== 'object' || !error.name || !error.message) {
 			error = this._formatUnknownError(error);
 		}
 
