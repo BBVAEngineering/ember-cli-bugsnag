@@ -15,8 +15,11 @@ module('Unit | Instance Initializer | bugsnag', (hooks) => {
 				notifyReleaseStages: ['production']
 			}
 		};
-
+		this.filter = {
+			errorFilter: []
+		};
 		this.instance.register('bugsnag:main', this.client, { instantiate: false });
+		this.instance.register('config:environment', this.filter, { instantiate: false });
 	});
 
 	hooks.afterEach(function() {
