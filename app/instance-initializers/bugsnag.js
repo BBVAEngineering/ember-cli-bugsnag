@@ -13,7 +13,7 @@ export function getFilter(instance) {
 	const config = instance.resolveRegistration('config:environment');
 
 	return {
-		errorFilter: getWithDefault(config, 'ember-cli-bugsnag.errorFilter',[]),
+		errorFilter: getWithDefault(config, 'ember-cli-bugsnag.errorFilter', []),
 	};
 }
 function getContext(router) {
