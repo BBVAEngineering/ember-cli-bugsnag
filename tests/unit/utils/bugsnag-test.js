@@ -1,4 +1,4 @@
-import { getMetaData, getUser } from 'dummy/utils/bugsnag';
+import { getMetaData, getUser, filterError } from 'dummy/utils/bugsnag';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | bugsnag', () => {
@@ -26,6 +26,19 @@ module('Unit | Utility | bugsnag', () => {
 			name: 'Dummy User',
 			email: 'dummy@example.com'
 		};
+
+		assert.deepEqual(
+			result,
+			expected,
+			'should return what\'s defined in the the app\'s util'
+		);
+	});
+
+	test('filterError()', (assert) => {
+		const result = filterError();
+		const expected = [
+			'errorDePrueba'
+		];
 
 		assert.deepEqual(
 			result,

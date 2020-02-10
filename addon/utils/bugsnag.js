@@ -5,3 +5,7 @@ export async function getMetaData(/* error, container */) {
 export function getUser(/* container */) {
 	return {};
 }
+
+export function filterError(/* error */) {
+	return true;
+}

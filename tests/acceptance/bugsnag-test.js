@@ -9,6 +9,8 @@ module('Acceptance | bugsnag', (hooks) => {
 	setupApplicationTest(hooks);
 
 	hooks.beforeEach(function() {
+		this.errorFilter = [];
+
 		this.bugsnag = this.owner.lookup('bugsnag:main');
 
 		sinon.stub(this.bugsnag, 'notify');
@@ -146,5 +148,31 @@ module('Acceptance | bugsnag', (hooks) => {
 
 		// eslint-disable-next-line require-atomic-updates
 		appMethods.getMetaData = getMetaData;
+	});
+
+	test('it does not notify a filtered error', async function(assert) {
+		class CustomError extends Error {
+			constructor() {
+				super(...arguments);
+
+				this.name = 'errorDePrueba';
+			}
+		}
+
+		const error = new CustomError('foo');
+
+		this.errorFilter.push('CustomError');
+
+		await visit('/foo');
+
+		try {
+			Ember.onerror(error);
+		} catch (e) {
+			// noop
+		}
+
+		await settled();
+
+		assert.ok(this.bugsnag.notify.notCalled);
 	});
 });
