@@ -2,13 +2,6 @@ import { setProperties, get } from '@ember/object';
 import Ember from 'ember';
 import * as appMethods from '../utils/bugsnag';
 
-class UnknownError extends Error {
-	constructor(message) {
-		super(message);
-		this.name = this.constructor.name;
-	}
-}
-
 function getContext(router) {
 	return `${router.currentRouteName} (${router.currentURL})`;
 }
@@ -51,12 +44,17 @@ export default {
 	},
 
 	_onError(error) {
+
 		if (!error || this.errorFilter.includes(error.name)) {
 			return;
 		}
 
 		if (typeof error !== 'object' || !error.name || !error.message) {
 			error = this._formatUnknownError(error);
+		}
+
+		if (!(error instanceof Error)) {
+			return;
 		}
 
 		this._setContext();
@@ -69,10 +67,6 @@ export default {
 		if (Ember.testing) {
 			throw error;
 		}
-	},
-
-	_formatUnknownError(message) {
-		return new UnknownError(message);
 	},
 
 	_setUser() {

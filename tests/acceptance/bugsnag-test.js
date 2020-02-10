@@ -107,7 +107,7 @@ module('Acceptance | bugsnag', (hooks) => {
 		assert.ok(this.bugsnag.notify.notCalled);
 	});
 
-	test('it notifies strings as errors', async function(assert) {
+	test('it does not notifies strings as errors', async function(assert) {
 		await visit('/foo');
 
 		try {
@@ -118,13 +118,7 @@ module('Acceptance | bugsnag', (hooks) => {
 
 		await settled();
 
-		assert.ok(this.bugsnag.notify.calledOnce);
-
-		const error = this.bugsnag.notify.args[0][0];
-
-		assert.ok(error instanceof Error);
-		assert.equal(error.name, 'UnknownError');
-		assert.equal(error.message, 'foo');
+		assert.notOk(this.bugsnag.notify.calledOnce);
 	});
 
 	test('it uses empty metadata', async function(assert) {
