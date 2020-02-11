@@ -107,10 +107,9 @@ module('Acceptance | bugsnag', (hooks) => {
 
 	test('it does not notifies strings as errors', async function(assert) {
 		await visit('/foo');
-		const error = new Error('foo');
 
 		try {
-			Ember.onerror(error);
+			Ember.onerror('foo');
 		} catch (e) {
 			// noop
 		}

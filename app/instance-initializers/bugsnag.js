@@ -42,7 +42,7 @@ export default {
 	},
 
 	_onError(error) {
-		if (!error || !appMethods.filterError(error)) {
+		if (!(error instanceof Error) || !appMethods.filterError(error)) {
 			return;
 		}
 
