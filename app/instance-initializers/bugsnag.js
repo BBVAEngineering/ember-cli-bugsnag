@@ -23,7 +23,7 @@ export function initialize(instance) {
 		setProperties(this, {
 			owner,
 			router,
-			client,
+			client
 		});
 
 		Ember.onerror = this._onError.bind(this);

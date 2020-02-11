@@ -15,6 +15,7 @@ module('Unit | Instance Initializer | bugsnag', (hooks) => {
 				notifyReleaseStages: ['production']
 			}
 		};
+
 		this.instance.register('bugsnag:main', this.client, { instantiate: false });
 	});
 
