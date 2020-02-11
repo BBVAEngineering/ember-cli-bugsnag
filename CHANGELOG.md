@@ -1,3 +1,19 @@
+# [3.1.0](https://github.com/BBVAEngineering/ember-cli-bugsnag/compare/v3.0.0...v3.1.0) (2020-02-11)
+
+
+### Features
+
+* add errorFilter ([a230ed7](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/a230ed772003682b73e564ea4e3ed3586c387a6a))
+* add filterError and Test ([b928327](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/b928327cab0aa2a1b0c04436d931eaff90c0d56f))
+* change coverage of functions to 82 ([efa0902](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/efa09024cb607b94febabfeabe722a00b78e8ec0))
+* delete unused function ([54c6c15](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/54c6c158a8fa2888ef4cc427753093a2be68f8e5))
+* eslint changes ([d923c78](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/d923c7806f49bd06b7debb39e15f8a209d5d3202))
+* eslint warnings ([3e4755f](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/3e4755f5ddfee2bab1916eb01687c930ded575d1))
+* fix coverage script for push ([58400cd](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/58400cd92019d777a501e214115155121c056c2e))
+* fix unit test ([62b6c22](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/62b6c22a92f0a6df373d3ad1664b0702fe79495b))
+* pR comments ([adb7796](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/adb7796c8cfc559c73192e8540792a69384d6d4f))
+* reset test ([e55b5f9](https://github.com/BBVAEngineering/ember-cli-bugsnag/commit/e55b5f9564da1b74a70e62ca284b987e59eb74d2))
+
 # [3.0.0](https://github.com/BBVAEngineering/ember-cli-bugsnag/compare/v2.0.1...v3.0.0) (2020-02-06)
 
 
