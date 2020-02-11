@@ -16,7 +16,6 @@ function getContext(router) {
 export function initialize(instance) {
 	const owner = instance.lookup ? instance : instance.container;
 	const client = owner.lookup('bugsnag:main');
-	const errorFilter = appMethods.filterError();
 
 	if (client && client.config.notifyReleaseStages.includes(client.config.releaseStage)) {
 		const routerService = owner.lookup('service:router');
@@ -32,7 +31,6 @@ export function initialize(instance) {
 			owner,
 			router,
 			client,
-			errorFilter
 		});
 
 		Ember.onerror = this._onError.bind(this);
@@ -51,12 +49,8 @@ export default {
 	},
 
 	_onError(error) {
-		if (!error || this.errorFilter.includes(error.name)) {
+		if (!error || !appMethods.filterError(error)) {
 			return;
-		}
-
-		if (typeof error !== 'object' || !error.name || !error.message) {
-			error = this._formatUnknownError(error);
 		}
 
 		this._setContext();

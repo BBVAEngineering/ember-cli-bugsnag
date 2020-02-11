@@ -36,9 +36,7 @@ module('Unit | Utility | bugsnag', () => {
 
 	test('filterError()', (assert) => {
 		const result = filterError();
-		const expected = [
-			'errorDePrueba'
-		];
+		const expected = true;
 
 		assert.deepEqual(
 			result,

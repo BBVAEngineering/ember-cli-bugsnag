@@ -17,7 +17,5 @@ export function getUser() {
 }
 
 export function filterError() {
-	return [
-		'errorDePrueba'
-	];
+	return true;
 }

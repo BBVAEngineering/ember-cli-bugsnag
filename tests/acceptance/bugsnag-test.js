@@ -9,8 +9,6 @@ module('Acceptance | bugsnag', (hooks) => {
 	setupApplicationTest(hooks);
 
 	hooks.beforeEach(function() {
-		this.errorFilter = [];
-
 		this.bugsnag = this.owner.lookup('bugsnag:main');
 
 		sinon.stub(this.bugsnag, 'notify');
@@ -109,9 +107,10 @@ module('Acceptance | bugsnag', (hooks) => {
 
 	test('it notifies strings as errors', async function(assert) {
 		await visit('/foo');
+		const error = new Error('foo');
 
 		try {
-			Ember.onerror('foo');
+			Ember.onerror(error);
 		} catch (e) {
 			// noop
 		}
@@ -120,10 +119,10 @@ module('Acceptance | bugsnag', (hooks) => {
 
 		assert.ok(this.bugsnag.notify.calledOnce);
 
-		const error = this.bugsnag.notify.args[0][0];
+		const errorNotify = this.bugsnag.notify.args[0][0];
 
-		assert.ok(error instanceof Error);
-		assert.equal(error.name, 'UnknownError');
+		assert.ok(errorNotify instanceof Error);
+		assert.equal(error.name, 'Error');
 		assert.equal(error.message, 'foo');
 	});
 
@@ -151,17 +150,9 @@ module('Acceptance | bugsnag', (hooks) => {
 	});
 
 	test('it does not notify a filtered error', async function(assert) {
-		class CustomError extends Error {
-			constructor() {
-				super(...arguments);
+		const error = new Error();
 
-				this.name = 'errorDePrueba';
-			}
-		}
-
-		const error = new CustomError('foo');
-
-		this.errorFilter.push('CustomError');
+		sinon.stub(appMethods, 'filterError').returns(false);
 
 		await visit('/foo');
 
