@@ -1,1 +1,1 @@
-export { getMetaData, getUser } from 'ember-cli-bugsnag/utils/bugsnag';
+export { getMetaData, getUser, filterError } from 'ember-cli-bugsnag/utils/bugsnag';

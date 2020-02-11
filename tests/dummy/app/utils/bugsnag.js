@@ -15,3 +15,7 @@ export function getUser() {
 		email: 'dummy@example.com'
 	};
 }
+
+export function filterError() {
+	return true;
+}

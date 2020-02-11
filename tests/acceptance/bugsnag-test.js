@@ -141,4 +141,22 @@ module('Acceptance | bugsnag', (hooks) => {
 		// eslint-disable-next-line require-atomic-updates
 		appMethods.getMetaData = getMetaData;
 	});
+
+	test('it does not notify a filtered error', async function(assert) {
+		const error = new Error();
+
+		sinon.stub(appMethods, 'filterError').returns(false);
+
+		await visit('/foo');
+
+		try {
+			Ember.onerror(error);
+		} catch (e) {
+			// noop
+		}
+
+		await settled();
+
+		assert.ok(this.bugsnag.notify.notCalled);
+	});
 });
